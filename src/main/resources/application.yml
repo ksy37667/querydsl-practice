@@ -1,0 +1,10 @@
+spring:
+    datasource:
+      url: jdbc:mysql://localhost:3306/querydsl?useUnicode=true&charset=utf8mb4&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+      username: root
+      password: 13546946
+    jpa:
+      hibernate:
+        ddl-auto: none
+      show-sql: true
+
