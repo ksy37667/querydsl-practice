@@ -31,11 +31,12 @@ interface MultipleSortablePageRequest : SingleSortablePageRequest {
     }
 
     override fun parsingSort(): Sort {
+        val orders = mutableListOf<Sort.Order>()
         val direction = this.direction ?: Sort.Direction.DESC
-        return this.sortItem?.trim()
-            ?.takeIf { it.isNotBlank() }
-            ?.run { convertToSort(this, direction) }
-            ?: default()
+        sortItem?.split(",")
+            ?.forEach { orders.add(Sort.Order(direction, it)) }
+
+        return Sort.by(orders)
     }
 
     fun convertToSort(requestedSortField: String, direction: Sort.Direction): Sort

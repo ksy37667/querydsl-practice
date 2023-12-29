@@ -1,5 +1,6 @@
 package com.querydsl.product.repository
 
+import com.querydsl.core.types.Order
 import com.querydsl.core.types.OrderSpecifier
 import com.querydsl.jpa.impl.JPAQueryFactory
 import com.querydsl.product.entity.Product
@@ -34,32 +35,33 @@ class ProductQueryRepository(
     private fun getAllOrderSpecifiers(sort: Sort): Array<OrderSpecifier<*>> {
         val orderSpecifiers = mutableListOf<OrderSpecifier<*>>()
 
+
         if(!sort.isEmpty) {
             sort.forEach {
                 val direction = it.direction
                 when(it.property) {
                     "createdAt" -> {
                         orderSpecifiers.add(
-                            if(direction.isAscending) product.createdAt.asc()
-                            else product.createdAt.desc()
+                            if(direction.isAscending) OrderSpecifier(Order.ASC, product.createdAt)
+                            else OrderSpecifier(Order.DESC, product.createdAt)
                         )
                     }
                     "name" -> {
                         orderSpecifiers.add(
-                            if(direction.isAscending) product.name.asc()
-                            else product.name.desc()
+                            if(direction.isAscending) OrderSpecifier(Order.ASC, product.name)
+                            else OrderSpecifier(Order.DESC, product.name)
                         )
                     }
                     "price" -> {
                         orderSpecifiers.add(
-                            if(direction.isAscending) product.price.asc()
-                            else product.price.desc()
+                            if(direction.isAscending) OrderSpecifier(Order.ASC, product.price)
+                            else OrderSpecifier(Order.DESC, product.price)
                         )
                     }
                     "category" -> {
                         orderSpecifiers.add(
-                            if(direction.isAscending) product.category.asc()
-                            else product.category.desc()
+                            if(direction.isAscending) OrderSpecifier(Order.ASC, product.category)
+                            else OrderSpecifier(Order.DESC, product.category)
                         )
                     }
                 }
